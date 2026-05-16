@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg126148.combat;
+import it.unicam.cs.mpgc.rpg126148.tecniche.*;
 import it.unicam.cs.mpgc.rpg126148.model.Stregone;
 import it.unicam.cs.mpgc.rpg126148.model.Maledizione;
-
 import java.util.Scanner;
 
 public class CombatSystem {
@@ -31,25 +31,64 @@ public class CombatSystem {
     private void turnoGiocatore(Stregone player, Maledizione nemico) {
 
         System.out.println("\n--- TURNO GIOCATORE ---");
-        System.out.println("1. Attacca");
-        System.out.println("2. Cura (energia semplice)");
+        System.out.println("1. Attacca base");
+        System.out.println("2. Tecnica maledetta");
+        System.out.println("3. Cura");
         System.out.print("Scegli azione: ");
 
-        int scelta = scanner.nextInt();
+        int scelta = Integer.parseInt(scanner.nextLine());
 
         switch (scelta) {
+
             case 1 -> {
-                int danno = player.attacca();
-                nemico.subisciDanno(danno);
-                System.out.println("Hai attaccato il nemico!");
+                player.setTecnica(new AttaccoFisico());
             }
 
             case 2 -> {
-                player.cura(10);
-                System.out.println("Ti sei curato!");
+                player.setTecnica(new Magia());
             }
 
-            default -> System.out.println("Azione non valida!");
+            case 3 -> {
+                player.setTecnica(new Cura());
+            }
+
+            default -> {
+                System.out.println("Azione non valida");
+                return;
+            }
+        }
+
+        Tecnica tecnica = player.getTecnicaAttuale();
+
+        if (!player.haEnergia(tecnica.costoEnergia())) {
+            System.out.println("Energia INSUFICIENTE!");
+            return;
+        }
+
+        player.consumaEnergia(tecnica.costoEnergia());
+
+        int effetto = tecnica.esegui();
+        if (effetto >= 0) {
+
+            nemico.subisciDanno(effetto);
+
+            System.out.println(
+                    player.getTecnicaAttuale().nome()
+                            + " infligge "
+                            + effetto
+                            + " danni!"
+            );
+
+        } else {
+
+            player.cura(-effetto);
+
+            System.out.println(
+                    player.getTecnicaAttuale().nome()
+                            + " cura "
+                            + (-effetto)
+                            + " HP!"
+            );
         }
     }
     private void turnoNemico(Stregone player, Maledizione nemico) {
@@ -64,7 +103,8 @@ public class CombatSystem {
     private void stampaStato(Stregone player, Maledizione nemico) {
 
         System.out.println("\n--- STATO ---");
-        System.out.println(player.getNome() + " HP: " + player.getPuntiVita());
+        System.out.println(player.getNome() + " HP: " + player.getPuntiVita()
+        + " Energia: " + player.getEnergiaNera());
         System.out.println(nemico.getNome() + " HP: " + nemico.getPuntiVita());
         System.out.println("----------------\n");
     }
