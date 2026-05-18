@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg126148.tecniche;
 
-public class AttaccoFisico implements Tecnica {
+public class Pugno implements Tecnica {
     @Override
     public int esegui(){
         return 10;
@@ -11,6 +11,6 @@ public class AttaccoFisico implements Tecnica {
     }
     @Override
     public String nome() {
-        return "Attacco Fisico";
+        return "Pugno";
     }
 }

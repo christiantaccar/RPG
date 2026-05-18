@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg126148.tecniche;
 
-public class Cura implements Tecnica{
+public class Cura implements Tecnica {
     @Override
     public String nome() {
         return "Cura";

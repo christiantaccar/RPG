@@ -1,58 +1,70 @@
 package it.unicam.cs.mpgc.rpg126148.model;
 
 import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
+import it.unicam.cs.mpgc.rpg126148.items.Inventario;
+import it.unicam.cs.mpgc.rpg126148.items.Pergamena;
+import it.unicam.cs.mpgc.rpg126148.tecniche.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Stregone extends Personaggio {
     private int energiaNera;
-    private int energiaNeraMassima;
-    private List<String> frammentiPergamena;
-    private Tecnica tecnicaAttuale;
+    private final int energiaNeraMassima;
+    private final List<Tecnica> tecnicheFisiche;
+    private final List<Tecnica> tecnicheSbloccate;
+    private final Inventario inventario;
 
     public Stregone(String nome) {
-        super(nome,100,15,5);
-        this.energiaNeraMassima=100;
-        this.energiaNera=energiaNeraMassima;
-        this.frammentiPergamena=new ArrayList<>();
+        super(nome, 100, 15, 5);
+        this.energiaNeraMassima = 100;
+        this.energiaNera = energiaNeraMassima;
+        this.inventario = new Inventario();
+
+        // tecniche fisiche sempre disponibili
+        this.tecnicheFisiche = new ArrayList<>();
+        tecnicheFisiche.add(new Pugno());
+        tecnicheFisiche.add(new Calcio());
+
+        // magie sbloccate tramite pergamene
+        this.tecnicheSbloccate = new ArrayList<>();
     }
 
-    public void setTecnica(Tecnica tecnica) {
-        this.tecnicaAttuale = tecnica;
-    }
+    // --- Pergamene ---
 
-    public Tecnica getTecnicaAttuale() {
-        return tecnicaAttuale;
-    }
-    public int usaTecnica() {
-        return tecnicaAttuale.esegui();
-    }
-
-    public void usaEnergia(int costo){
-        energiaNera-=costo;
-        if(energiaNera<=0){
-            energiaNera=0;
+    public void sbloccaTecnica(Pergamena pergamena) {
+        if (pergamena.isUsata()) {
+            System.out.println("Questa pergamena è già stata usata.");
+            return;
         }
-    }
-    public void aggiungiFrammentoPergamene(String frammento){
-        frammentiPergamena.add(frammento);
+        tecnicheSbloccate.add(pergamena.getTecnicaContenuta());
+        pergamena.usa();
+        System.out.println("Tecnica sbloccata: " + pergamena.getTecnicaContenuta().nome());
     }
 
-    public int getEnergiaNera() {
-        return energiaNera;
-    }
-    public List<String> getFrammentiPergamena() {
-        return frammentiPergamena;
-    }
-    public boolean haEnergia(int costo) {
-        return energiaNera >= costo;
-    }
+    // --- Energia ---
+
+    public boolean haEnergia(int costo) { return energiaNera >= costo; }
+
     public void consumaEnergia(int valore) {
-        energiaNera -= valore;
-
-        if (energiaNera < 0) {
-            energiaNera = 0;
-        }
+        energiaNera = Math.max(0, energiaNera - valore);
     }
+
+    // --- Getter ---
+
+    public List<Tecnica> getTecnicheFisiche() {
+        return Collections.unmodifiableList(tecnicheFisiche);
+    }
+
+    public List<Tecnica> getTecnicheSbloccate() {
+        return Collections.unmodifiableList(tecnicheSbloccate);
+    }
+
+    public Inventario getInventario() { return inventario; }
+
+    public int getEnergiaNera() { return energiaNera; }
+    public int getEnergiaNeraMassima() { return energiaNeraMassima; }
+
+    // cura rimane in Personaggio, qui esponiamo solo ciò che serve
 }
