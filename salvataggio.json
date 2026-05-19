@@ -1,0 +1,13 @@
+{
+  "nome": "Ryomen",
+  "puntiVita": 100,
+  "energiaNera": 25,
+  "frammenti": {
+    "OSCURITA": 0,
+    "FUOCO": 1,
+    "CURA": 0
+  },
+  "tecnicheSbloccate": [
+    "Palla di Fuoco"
+  ]
+}

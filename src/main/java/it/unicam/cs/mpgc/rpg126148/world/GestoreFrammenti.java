@@ -1,12 +1,14 @@
 package it.unicam.cs.mpgc.rpg126148.world;
 
 import it.unicam.cs.mpgc.rpg126148.items.Frammento;
+import it.unicam.cs.mpgc.rpg126148.items.Oggetto;
 import it.unicam.cs.mpgc.rpg126148.items.Pergamena;
 import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
 import it.unicam.cs.mpgc.rpg126148.model.Stregone;
 import it.unicam.cs.mpgc.rpg126148.tecniche.*;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class GestoreFrammenti {
@@ -42,6 +44,18 @@ public class GestoreFrammenti {
     }
 
     private void sblocca(Stregone stregone, TipoFrammento tipo) {
+        // rimuove i frammenti usati per lo sblocco
+        int soglia = SOGLIE.get(tipo);
+        List<Oggetto> daRimuovere = stregone.getInventario().getOggetti().stream()
+                .filter(o -> o instanceof Frammento)
+                .map(o -> (Frammento) o)
+                .filter(f -> f.getTipo() == tipo)
+                .limit(soglia)
+                .map(f -> (Oggetto) f)
+                .toList();
+        daRimuovere.forEach(stregone.getInventario()::rimuovi);
+
+        // sblocca la tecnica
         Pergamena pergamena = switch (tipo) {
             case FUOCO -> new Pergamena(
                     "Pergamena del Fuoco",

@@ -37,9 +37,16 @@ public class Stregone extends Personaggio {
             System.out.println("Questa pergamena è già stata usata.");
             return;
         }
+        boolean giaPresente = tecnicheSbloccate.stream()
+                .anyMatch(t -> t.nome().equals(pergamena.getTecnicaContenuta().nome()));
+        if (giaPresente) {
+            System.out.println("Tecnica già sbloccata.");
+            return;
+        }
         tecnicheSbloccate.add(pergamena.getTecnicaContenuta());
         pergamena.usa();
         System.out.println("Tecnica sbloccata: " + pergamena.getTecnicaContenuta().nome());
+
     }
 
     // --- Energia ---
@@ -64,6 +71,13 @@ public class Stregone extends Personaggio {
 
     public int getEnergiaNera() { return energiaNera; }
     public int getEnergiaNeraMassima() { return energiaNeraMassima; }
-
+    //Aggiungere alle tecniche in combattimento quelle presenti nel file di salvataggio
+    public void aggiungiTecnicaSbloccata(Tecnica tecnica) {
+        boolean giaPresente = tecnicheSbloccate.stream()
+                .anyMatch(t -> t.nome().equals(tecnica.nome()));
+        if (!giaPresente) {
+            tecnicheSbloccate.add(tecnica);
+        }
+    }
     // cura rimane in Personaggio, qui esponiamo solo ciò che serve
 }
