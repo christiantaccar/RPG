@@ -44,5 +44,8 @@ public class Personaggio {
     public int getPuntiVita() {
         return puntiVita;
     }
+    public void reseHP(){
+        puntiVita=puntiVitaMassimi;
+    }
 
 }

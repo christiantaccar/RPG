@@ -1,6 +1,5 @@
 package it.unicam.cs.mpgc.rpg126148.model;
 
-import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
 import it.unicam.cs.mpgc.rpg126148.items.Inventario;
 import it.unicam.cs.mpgc.rpg126148.items.Pergamena;
 import it.unicam.cs.mpgc.rpg126148.tecniche.*;

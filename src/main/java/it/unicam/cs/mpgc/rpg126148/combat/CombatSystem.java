@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class CombatSystem {
     private final Scanner scanner = new Scanner(System.in);
 
-    public void combatti(Stregone player, Maledizione nemico) {
+    public boolean combatti(Stregone player, Maledizione nemico) {
         System.out.println("Inizio combattimento!");
 
         while (player.eVivo() && nemico.eVivo()) {
@@ -20,8 +20,15 @@ public class CombatSystem {
             stampaStato(player, nemico);
         }
 
-        if (player.eVivo()) System.out.println(" Hai vinto!");
-        else System.out.println("☠ Sei stato sconfitto!");
+        if (player.eVivo()) {
+            System.out.println(" Hai vinto!");
+            player.reseHP();
+            return true;
+        }
+        else{
+            System.out.println("☠ Sei stato sconfitto!");
+            return false;
+        }
     }
 
     private void turnoGiocatore(Stregone player, Maledizione nemico) {
