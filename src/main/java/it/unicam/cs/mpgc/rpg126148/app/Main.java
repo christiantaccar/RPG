@@ -1,30 +1,25 @@
 package it.unicam.cs.mpgc.rpg126148.app;
 
-import it.unicam.cs.mpgc.rpg126148.combat.CombatSystem;
 import it.unicam.cs.mpgc.rpg126148.items.Frammento;
-import it.unicam.cs.mpgc.rpg126148.model.Maledizione;
+import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
 import it.unicam.cs.mpgc.rpg126148.model.Stregone;
 import it.unicam.cs.mpgc.rpg126148.persistence.GestoreSalvataggio;
 import it.unicam.cs.mpgc.rpg126148.persistence.SalvataggioStato;
 import it.unicam.cs.mpgc.rpg126148.tecniche.RegistroTecniche;
 import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
-import it.unicam.cs.mpgc.rpg126148.world.GestoreFrammenti;
-import it.unicam.cs.mpgc.rpg126148.world.GestoreRicompense;
-import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
-
-import java.util.Optional;
+import it.unicam.cs.mpgc.rpg126148.world.*;
 
 public class Main {
     public static void main(String[] args) {
 
+        // carica salvataggio
         GestoreSalvataggio gestoreSalvataggio = new GestoreSalvataggio();
         SalvataggioStato statoCaricato = gestoreSalvataggio.carica();
 
-        // nome del giocatore dal salvataggio o default
         String nomeGiocatore = (statoCaricato != null) ? statoCaricato.nome : "Ryomen";
         Stregone giocatore = new Stregone(nomeGiocatore);
 
-// ripristina frammenti dal salvataggio
+        // ripristina frammenti
         if (statoCaricato != null && statoCaricato.frammenti != null) {
             statoCaricato.frammenti.forEach((tipo, quantita) -> {
                 for (int i = 0; i < quantita; i++) {
@@ -34,6 +29,8 @@ public class Main {
                 }
             });
         }
+
+        // ripristina tecniche sbloccate
         if (statoCaricato != null && statoCaricato.tecnicheSbloccate != null) {
             statoCaricato.tecnicheSbloccate.forEach(nomeTecnica -> {
                 Tecnica tecnica = RegistroTecniche.get(nomeTecnica);
@@ -43,23 +40,39 @@ public class Main {
             });
         }
 
-        GestoreRicompense gestoreRicompense = new GestoreRicompense();
-        GestoreFrammenti gestoreFrammenti = new GestoreFrammenti();
-        CombatSystem cs = new CombatSystem();
+        // costruisci la mappa
+        // costruisci la mappa
+        Mappa mappa = new Mappa(20, 20);
 
-        Maledizione nemico = new Maledizione("Spirito Maledetto", 1);
-        boolean vittoria = cs.combatti(giocatore, nemico);
+    // stanza 1 — angolo sinistra 6x3 (da x=1,y=1)
+        mappa.aggiungiStanza(new Stanza("Villaggio Abbandonato", 1, 1, 6, 3));
+        mappa.setIngresso(6, 2); // ingresso destra della stanza 1
 
-        if (vittoria) {
-            Optional<Frammento> ricompensa = gestoreRicompense.genera(nemico);
-            ricompensa.ifPresent(f -> gestoreFrammenti.aggiungiFrammento(giocatore, f));
+    // corridoio orizzontale tra le due stanze
+        mappa.aggiungiCorridoio(7, 2, 13, 2);
+
+    // stanza 2 — angolo destra 4x4 (da x=14,y=1)
+        mappa.aggiungiStanza(new Stanza("Rovine del Tempio", 14, 1, 4, 4));
+        mappa.setIngresso(14, 2); // ingresso sinistra della stanza 2
+
+        // nemico davanti alla cassa, cassa nell'angolo
+        mappa.posizionaNemico(15, 3);
+        mappa.posizionaCassa(16, 3);
+
+        // ripristina posizione
+        if (statoCaricato != null) {
+            mappa.posizionaGiocatore(statoCaricato.xGiocatore, statoCaricato.yGiocatore);
+        } else {
+            mappa.posizionaGiocatore(3, 2); // posizione default
         }
 
-        // salva dopo ogni scontro
-        gestoreSalvataggio.salva(giocatore);
+        // avvia
+        GestoreMovimento gestoreMovimento = new GestoreMovimento(mappa, giocatore);
+        gestoreMovimento.avvia();
 
-        System.out.println("\nTecniche sbloccate:");
-        giocatore.getTecnicheSbloccate()
-                .forEach(t -> System.out.println("  - " + t.nome()));
+        // salva
+        gestoreSalvataggio.salva(giocatore, mappa);
+
+
     }
 }

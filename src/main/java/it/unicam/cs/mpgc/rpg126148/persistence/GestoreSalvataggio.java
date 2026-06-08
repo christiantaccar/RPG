@@ -6,6 +6,7 @@ import it.unicam.cs.mpgc.rpg126148.items.Frammento;
 import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
 import it.unicam.cs.mpgc.rpg126148.model.Stregone;
 import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
+import it.unicam.cs.mpgc.rpg126148.world.Mappa;
 
 import java.io.*;
 import java.util.HashMap;
@@ -17,11 +18,13 @@ public class GestoreSalvataggio {
     private static final String FILE_SALVATAGGIO = "salvataggio.json";
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public void salva(Stregone stregone) {
+    public void salva(Stregone stregone, Mappa mappa) {
         SalvataggioStato stato = new SalvataggioStato();
         stato.nome = stregone.getNome();
         stato.puntiVita = stregone.getPuntiVita();
         stato.energiaNera = stregone.getEnergiaNera();
+        stato.xGiocatore=mappa.getXGiocatore();
+        stato.yGiocatore=mappa.getYGiocatore();
 
         // contiamo i frammenti per tipo
         Map<String, Integer> frammenti = new HashMap<>();

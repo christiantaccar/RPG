@@ -9,4 +9,6 @@ public class SalvataggioStato {
     public int energiaNera;
     public Map<String, Integer> frammenti;
     public List<String> tecnicheSbloccate;
+    public int xGiocatore;
+    public int yGiocatore;
 }
