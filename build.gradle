@@ -1,5 +1,6 @@
 plugins {
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 group = 'it.unicam.cs.mpgc.rpg126148'
@@ -15,12 +16,19 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.13.2'
 }
 
+javafx {
+    version = '21'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
 test {
     useJUnitPlatform()
 }
-application{
-    mainClass='it.unicam.cs.mpgc.rpg126148.app.Main'
+
+application {
+    mainClass = 'it.unicam.cs.mpgc.rpg126148.app.Main'
 }
+
 run {
     standardInput = System.in
 }

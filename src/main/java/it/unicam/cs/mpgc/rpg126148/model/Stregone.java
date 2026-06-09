@@ -79,5 +79,8 @@ public class Stregone extends Personaggio {
             tecnicheSbloccate.add(tecnica);
         }
     }
+    public void recuperaEnergia(int valore) {
+        energiaNera = Math.min(energiaNeraMassima, energiaNera + valore);
+    }
     // cura rimane in Personaggio, qui esponiamo solo ciò che serve
 }

@@ -22,7 +22,7 @@ public class CombatSystem {
 
         if (player.eVivo()) {
             System.out.println(" Hai vinto!");
-            player.reseHP();
+            player.resetHP();
             return true;
         }
         else{

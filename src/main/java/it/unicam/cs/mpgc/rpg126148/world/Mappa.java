@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.rpg126148.world;
 
+import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +68,10 @@ public class Mappa {
 
     public void posizionaCassa(int x, int y) {
         griglia[y][x].setTipo(TipoCella.CASSA);
+    }
+    public void posizionaCassaTipizzata(int x, int y, TipoFrammento tipo) {
+        griglia[y][x].setTipo(TipoCella.CASSA);
+        griglia[y][x].setContenuto(tipo);
     }
 
     public void posizionaGiocatore(int x, int y) {

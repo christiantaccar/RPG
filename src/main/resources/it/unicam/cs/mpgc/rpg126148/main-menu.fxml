@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="it.unicam.cs.mpgc.rpg126148.controller.MainMenuController"
+      alignment="CENTER"
+      spacing="20"
+      style="-fx-background-color: #1a1a2e; -fx-padding: 60;">
+
+    <Text text="⚔ RPG MALEDETTO ⚔"
+          style="-fx-fill: #e94560; -fx-font-size: 36; -fx-font-weight: bold;"/>
+
+    <Text text="Un mondo di oscurità ti attende"
+          style="-fx-fill: #a8a8b3; -fx-font-size: 14;"/>
+
+    <VBox spacing="12" alignment="CENTER" style="-fx-padding: 30 0 0 0;">
+
+        <Button fx:id="btnNuovaPartita"
+                text="Nuova Partita"
+                onAction="#nuovaPartita"
+                prefWidth="200"
+                style="-fx-background-color: #e94560; -fx-text-fill: white;
+                       -fx-font-size: 14; -fx-font-weight: bold;
+                       -fx-background-radius: 8; -fx-cursor: hand;"/>
+
+        <Button fx:id="btnCaricoPartita"
+                text="Carica Partita"
+                onAction="#caricaPartita"
+                prefWidth="200"
+                style="-fx-background-color: #16213e; -fx-text-fill: #e94560;
+                       -fx-font-size: 14; -fx-font-weight: bold;
+                       -fx-background-radius: 8; -fx-border-color: #e94560;
+                       -fx-border-radius: 8; -fx-cursor: hand;"/>
+
+        <Button fx:id="btnEsci"
+                text="Esci"
+                onAction="#esci"
+                prefWidth="200"
+                style="-fx-background-color: transparent; -fx-text-fill: #a8a8b3;
+                       -fx-font-size: 12; -fx-cursor: hand;"/>
+    </VBox>
+
+</VBox>

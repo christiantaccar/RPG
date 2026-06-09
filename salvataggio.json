@@ -3,13 +3,13 @@
   "puntiVita": 100,
   "energiaNera": 100,
   "frammenti": {
-    "OSCURITA": 1,
+    "OSCURITA": 4,
     "FUOCO": 0,
-    "CURA": 0
+    "CURA": 1
   },
   "tecnicheSbloccate": [
     "Palla di Fuoco"
   ],
-  "xGiocatore": 9,
-  "yGiocatore": 2
+  "xGiocatore": 10,
+  "yGiocatore": 9
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unicam.cs.mpgc.rpg126148.controller.CombattimentoController"
+            style="-fx-background-color: #1a1a2e;">
+
+    <!-- TOP: HP giocatore e nemico -->
+    <top>
+        <HBox style="-fx-background-color: #16213e; -fx-padding: 15 30;"
+              spacing="60" alignment="CENTER">
+
+            <VBox alignment="CENTER" spacing="5">
+                <Label fx:id="labelNomeGiocatore"
+                       text="Giocatore"
+                       style="-fx-text-fill: #4ecca3; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                <Label fx:id="labelHPGiocatore"
+                       text="HP: 100/100"
+                       style="-fx-text-fill: #4ecca3; -fx-font-size: 13;"/>
+                <Label fx:id="labelEnergiaGiocatore"
+                       text="EN: 100/100"
+                       style="-fx-text-fill: #f5a623; -fx-font-size: 13;"/>
+            </VBox>
+
+            <Label text="⚔"
+                   style="-fx-text-fill: #e94560; -fx-font-size: 28;"/>
+
+            <VBox alignment="CENTER" spacing="5">
+                <Label fx:id="labelNomeNemico"
+                       text="Nemico"
+                       style="-fx-text-fill: #e94560; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                <Label fx:id="labelHPNemico"
+                       text="HP: 50/50"
+                       style="-fx-text-fill: #e94560; -fx-font-size: 13;"/>
+            </VBox>
+
+        </HBox>
+    </top>
+
+    <!-- CENTER: log combattimento -->
+    <center>
+        <VBox style="-fx-padding: 20;" spacing="10">
+            <Label text="COMBATTIMENTO"
+                   style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 13;"/>
+            <TextArea fx:id="logCombattimento"
+                      editable="false"
+                      wrapText="true"
+                      prefHeight="250"
+                      style="-fx-background-color: #0f3460; -fx-text-fill: #a8a8b3;
+                             -fx-font-size: 12; -fx-border-color: #e94560;"/>
+        </VBox>
+    </center>
+
+    <!-- BOTTOM: scelta tecniche -->
+    <bottom>
+        <VBox style="-fx-background-color: #16213e; -fx-padding: 15 20;"
+              spacing="10">
+
+            <Label text="SCEGLI TECNICA:"
+                   style="-fx-text-fill: #a8a8b3; -fx-font-size: 12;"/>
+
+            <HBox fx:id="boxTecniche" spacing="10" alignment="CENTER_LEFT"/>
+
+        </VBox>
+    </bottom>
+
+</BorderPane>

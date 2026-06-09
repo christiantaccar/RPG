@@ -5,9 +5,9 @@ public class Maledizione extends Personaggio {
 
     public Maledizione(String nome,int livelloMinaccia) {
         super(nome,
-                50+livelloMinaccia*10,
-                10+livelloMinaccia*2,
-                2+livelloMinaccia);
+                30+livelloMinaccia*10,
+                5+livelloMinaccia*2,
+                1+livelloMinaccia);
         this.livelloMinaccia = livelloMinaccia;
     }
     public int getLivelloMinaccia() {

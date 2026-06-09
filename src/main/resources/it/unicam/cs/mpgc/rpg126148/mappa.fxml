@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unicam.cs.mpgc.rpg126148.controller.MappaController"
+            style="-fx-background-color: #1a1a2e;">
+
+    <!-- TOP: stats giocatore -->
+    <top>
+        <HBox style="-fx-background-color: #16213e; -fx-padding: 10 20;"
+              spacing="30" alignment="CENTER_LEFT">
+            <Label fx:id="labelNome"
+                   text="Giocatore"
+                   style="-fx-text-fill: #e94560; -fx-font-size: 14; -fx-font-weight: bold;"/>
+            <Label fx:id="labelHP"
+                   text="HP: 100/100"
+                   style="-fx-text-fill: #4ecca3; -fx-font-size: 13;"/>
+            <Label fx:id="labelEnergia"
+                   text="EN: 100/100"
+                   style="-fx-text-fill: #f5a623; -fx-font-size: 13;"/>
+            <Label fx:id="labelFrammenti"
+                   text="Frammenti: F:0 C:0 O:0"
+                   style="-fx-text-fill: #a8a8b3; -fx-font-size: 13;"/>
+            <Label fx:id="labelStanza"
+                   text="Stanza: -"
+                   style="-fx-text-fill: #a8a8b3; -fx-font-size: 13;"/>
+        </HBox>
+    </top>
+
+    <!-- CENTER: griglia mappa -->
+    <center>
+        <GridPane fx:id="gridMappa"
+                  style="-fx-padding: 20;"
+                  alignment="CENTER"
+                  hgap="2" vgap="2"/>
+    </center>
+
+    <!-- RIGHT: log eventi -->
+    <right>
+        <VBox style="-fx-background-color: #16213e; -fx-padding: 15;"
+              spacing="10" prefWidth="220">
+            <Label text="LOG"
+                   style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 13;"/>
+            <TextArea fx:id="logArea"
+                      editable="false"
+                      wrapText="true"
+                      prefHeight="400"
+                      style="-fx-background-color: #0f3460; -fx-text-fill: #a8a8b3;
+                             -fx-font-size: 11; -fx-border-color: #e94560;"/>
+        </VBox>
+    </right>
+
+    <!-- BOTTOM: controlli -->
+    <bottom>
+        <HBox style="-fx-background-color: #16213e; -fx-padding: 10 20;"
+              spacing="15" alignment="CENTER">
+            <Label text="Muoviti: W A S D"
+                   style="-fx-text-fill: #a8a8b3; -fx-font-size: 12;"/>
+            <Button text="Salva ed Esci"
+                    onAction="#salvaEsci"
+                    style="-fx-background-color: #e94560; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
