@@ -12,5 +12,5 @@ public abstract class Oggetto {
     public String getNome() { return nome; }
     public String getDescrizione() { return descrizione; }
 
-    public abstract void usa();
+
 }

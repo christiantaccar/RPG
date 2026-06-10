@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.rpg126148.controller;
 
+import it.unicam.cs.mpgc.rpg126148.app.GameContext;
+import it.unicam.cs.mpgc.rpg126148.app.Main;
 import it.unicam.cs.mpgc.rpg126148.items.Frammento;
 import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
 import it.unicam.cs.mpgc.rpg126148.model.Maledizione;
@@ -37,18 +39,18 @@ public class MappaController {
 
     private Stregone giocatore;
     private Mappa mappa;
-    private final GestoreSalvataggio gestoreSalvataggio = new GestoreSalvataggio();
-    private final GestoreRicompense gestoreRicompense = new GestoreRicompense();
-    private final GestoreFrammenti gestoreFrammenti = new GestoreFrammenti();
+    private GameContext context;
     private final Random random = new Random();
     private int xPrecedente;
     private int yPrecedente;
-    private static final int CELL_SIZE = 28;
+    private static final int CELL_SIZE = 22;
 
     public void inizializza(SalvataggioStato stato) {
-        String nome = (stato != null) ? stato.nome : "Ryomen";
-        giocatore = new Stregone(nome);
-
+        inizializza(stato,"Player1");
+    }
+    public void inizializza(SalvataggioStato stato, String nome) {
+        String nomeFinale = (stato != null) ? stato.nome : nome;
+        giocatore = new Stregone(nomeFinale);
         if (stato != null && stato.frammenti != null) {
             stato.frammenti.forEach((tipo, quantita) -> {
                 for (int i = 0; i < quantita; i++) {
@@ -98,7 +100,7 @@ public class MappaController {
         mappa.aggiungiCorridoio(7, 2, 9, 2);
 
         // stanza 2 — nemico facile (6x3)
-        mappa.aggiungiStanza(new Stanza("Accampamento Oscuro", 10, 1, 6, 3, 1));
+        mappa.aggiungiStanza(new Stanza("Accampamento Oscuro", 10, 1, 6, 3, 9));
         mappa.setIngresso(10, 2);
         mappa.setIngresso(15, 2);
         mappa.posizionaNemico(12, 2);
@@ -218,7 +220,8 @@ public class MappaController {
     }
 
     private void gestisciNemico(Cella cella) {
-        int livello = 1 + random.nextInt(3);
+        Stanza stanzaCorrente = mappa.getStanzaCorrente();
+        int livello = (stanzaCorrente != null) ? stanzaCorrente.getLivelloNemici() : 1;
         Maledizione nemico = new Maledizione("Spirito Maledetto", livello);
 
         // anteprima nemico
@@ -258,9 +261,9 @@ public class MappaController {
                     getClass().getResource("/it/unicam/cs/mpgc/rpg126148/combattimento.fxml")
             );
             Stage stage = (Stage) gridMappa.getScene().getWindow();
-            stage.setScene(new Scene(loader.load(), 900, 600));
-            CombattimentoController controller = loader.getController();
-            controller.inizializza(giocatore, nemico, mappa, cella, this);
+            CombattimentoController controller = Main.cambiaScena(stage, "combattimento.fxml", 1100, 700);
+            controller.setContext(context);
+            controller.inizializza(giocatore, nemico, mappa, cella);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -273,7 +276,7 @@ public class MappaController {
             tipo = tipi[random.nextInt(tipi.length)];
         }
         Frammento frammento = new Frammento(tipo);
-        gestoreFrammenti.aggiungiFrammento(giocatore, frammento);
+        context.getGestoreFrammenti().aggiungiFrammento(giocatore, frammento);
         cella.setTipo(TipoCella.VUOTA);
         log("Hai trovato: " + frammento.getNome());
     }
@@ -281,11 +284,11 @@ public class MappaController {
     public void ritornaDopoScontro(boolean vittoria, Cella cella) {
         if (vittoria) {
             cella.setTipo(TipoCella.VUOTA);
-            Optional<Frammento> ricompensa = gestoreRicompense.genera(
+            Optional<Frammento> ricompensa = context.getGestoreRicompense().genera(
                     new Maledizione("", 1 + random.nextInt(3))
             );
             ricompensa.ifPresent(f -> {
-                gestoreFrammenti.aggiungiFrammento(giocatore, f);
+                context.getGestoreFrammenti().aggiungiFrammento(giocatore, f);
                 log("🔮 Hai ottenuto: " + f.getNome());
             });
         } else {
@@ -324,7 +327,7 @@ public class MappaController {
 
     @FXML
     public void salvaEsci() {
-        gestoreSalvataggio.salva(giocatore, mappa);
+        context.getGestoreSalvataggio().salva(giocatore, mappa);
         System.exit(0);
     }
     public void inizializzaDaEsistente(Stregone giocatore, Mappa mappa) {
@@ -339,5 +342,8 @@ public class MappaController {
             gridMappa.requestFocus();
         });
         gridMappa.setFocusTraversable(true);
+    }
+    public void setContext(GameContext context) {
+        this.context = context;
     }
 }

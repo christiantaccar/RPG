@@ -1,13 +1,13 @@
 package it.unicam.cs.mpgc.rpg126148.controller;
 
+import it.unicam.cs.mpgc.rpg126148.app.GameContext;
+import it.unicam.cs.mpgc.rpg126148.app.Main;
 import it.unicam.cs.mpgc.rpg126148.model.Maledizione;
 import it.unicam.cs.mpgc.rpg126148.model.Stregone;
 import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
 import it.unicam.cs.mpgc.rpg126148.world.Cella;
 import it.unicam.cs.mpgc.rpg126148.world.Mappa;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -28,15 +28,14 @@ public class CombattimentoController {
     private Maledizione nemico;
     private Mappa mappa;
     private Cella cellaCorrente;
-    private MappaController mappaController;
+    private GameContext context;
 
     public void inizializza(Stregone giocatore, Maledizione nemico,
-                            Mappa mappa, Cella cella, MappaController mappaController) {
+                            Mappa mappa, Cella cella) {
         this.giocatore = giocatore;
         this.nemico = nemico;
         this.mappa = mappa;
         this.cellaCorrente = cella;
-        this.mappaController = mappaController;
 
         aggiornaStats();
         costruisciBottoniTecniche();
@@ -116,17 +115,17 @@ public class CombattimentoController {
 
     private void tornaAllaMappa(boolean vittoria) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/it/unicam/cs/mpgc/rpg126148/mappa.fxml")
-            );
             Stage stage = (Stage) logCombattimento.getScene().getWindow();
-            stage.setScene(new Scene(loader.load(), 900, 600));
-            MappaController controller = loader.getController();
-
-            // passiamo lo stato esistente
-            controller.inizializzaDaEsistente(giocatore, mappa);
-            controller.ritornaDopoScontro(vittoria, cellaCorrente);
-
+            if (vittoria) {
+                MappaController controller = Main.cambiaScena(stage, "mappa.fxml", 1100, 700);
+                controller.setContext(context);
+                controller.inizializzaDaEsistente(giocatore, mappa);
+                controller.ritornaDopoScontro(true, cellaCorrente);
+            } else {
+                // game over (non salva)
+                GameOverController controller = Main.cambiaScena(stage, "game-over.fxml", 500, 400);
+                controller.setContext(context);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,5 +133,8 @@ public class CombattimentoController {
 
     private void log(String msg) {
         logCombattimento.appendText(msg + "\n");
+    }
+    public void setContext(GameContext context) {
+        this.context = context;
     }
 }

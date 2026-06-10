@@ -10,8 +10,4 @@ public class Frammento extends Oggetto {
 
     public TipoFrammento getTipo() { return tipo; }
 
-    @Override
-    public void usa() {
-        System.out.println("Il frammento viene assorbito.");
-    }
 }

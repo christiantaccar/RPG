@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="it.unicam.cs.mpgc.rpg126148.controller.GameOverController"
+      alignment="CENTER"
+      spacing="25"
+      style="-fx-background-color: #0d0d0d; -fx-padding: 60;">
+
+    <Text text="☠ GAME OVER ☠"
+          style="-fx-fill: #e94560; -fx-font-size: 42; -fx-font-weight: bold;"/>
+
+    <Text text="Sei stato sconfitto..."
+          style="-fx-fill: #a8a8b3; -fx-font-size: 16;"/>
+
+    <Label fx:id="labelInfo"
+           text=""
+           style="-fx-text-fill: #a8a8b3; -fx-font-size: 13;"/>
+
+    <VBox spacing="12" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+
+        <Button fx:id="btnRiprendi"
+                text="Riprendi dal salvataggio"
+                onAction="#riprendi"
+                prefWidth="250"
+                style="-fx-background-color: #e94560; -fx-text-fill: white;
+                       -fx-font-size: 14; -fx-font-weight: bold;
+                       -fx-background-radius: 8; -fx-cursor: hand;"/>
+
+        <Button text="Menu principale"
+                onAction="#tornaMenu"
+                prefWidth="250"
+                style="-fx-background-color: #16213e; -fx-text-fill: #e94560;
+                       -fx-font-size: 14; -fx-font-weight: bold;
+                       -fx-background-radius: 8; -fx-border-color: #e94560;
+                       -fx-border-radius: 8; -fx-cursor: hand;"/>
+
+        <Button text="Esci"
+                onAction="#esci"
+                prefWidth="250"
+                style="-fx-background-color: transparent; -fx-text-fill: #a8a8b3;
+                       -fx-font-size: 12; -fx-cursor: hand;"/>
+    </VBox>
+
+</VBox>

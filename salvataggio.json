@@ -1,15 +1,13 @@
 {
-  "nome": "Ryomen",
+  "nome": "fg",
   "puntiVita": 100,
   "energiaNera": 100,
   "frammenti": {
-    "OSCURITA": 4,
-    "FUOCO": 0,
-    "CURA": 1
+    "OSCURITA": 0,
+    "FUOCO": 1,
+    "CURA": 0
   },
-  "tecnicheSbloccate": [
-    "Palla di Fuoco"
-  ],
-  "xGiocatore": 10,
-  "yGiocatore": 9
+  "tecnicheSbloccate": [],
+  "xGiocatore": 8,
+  "yGiocatore": 2
 }
