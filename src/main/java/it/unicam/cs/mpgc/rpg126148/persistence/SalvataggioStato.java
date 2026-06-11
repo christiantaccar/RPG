@@ -11,4 +11,5 @@ public class SalvataggioStato {
     public List<String> tecnicheSbloccate;
     public int xGiocatore;
     public int yGiocatore;
+    public String dataOra;
 }

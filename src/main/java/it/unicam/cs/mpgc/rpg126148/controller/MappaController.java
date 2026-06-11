@@ -44,7 +44,6 @@ public class MappaController {
     private int xPrecedente;
     private int yPrecedente;
     private static final int CELL_SIZE = 22;
-
     public void inizializza(SalvataggioStato stato) {
         inizializza(stato,"Player1");
     }
@@ -100,7 +99,7 @@ public class MappaController {
         mappa.aggiungiCorridoio(7, 2, 9, 2);
 
         // stanza 2 — nemico facile (6x3)
-        mappa.aggiungiStanza(new Stanza("Accampamento Oscuro", 10, 1, 6, 3, 9));
+        mappa.aggiungiStanza(new Stanza("Accampamento Oscuro", 10, 1, 6, 3, 1));
         mappa.setIngresso(10, 2);
         mappa.setIngresso(15, 2);
         mappa.posizionaNemico(12, 2);
@@ -261,7 +260,7 @@ public class MappaController {
                     getClass().getResource("/it/unicam/cs/mpgc/rpg126148/combattimento.fxml")
             );
             Stage stage = (Stage) gridMappa.getScene().getWindow();
-            CombattimentoController controller = Main.cambiaScena(stage, "combattimento.fxml", 1100, 700);
+            CombattimentoController controller = Main.cambiaScena(stage, "combattimento.fxml");
             controller.setContext(context);
             controller.inizializza(giocatore, nemico, mappa, cella);
         } catch (Exception e) {
@@ -327,7 +326,7 @@ public class MappaController {
 
     @FXML
     public void salvaEsci() {
-        context.getGestoreSalvataggio().salva(giocatore, mappa);
+        context.getGestoreSalvataggio().salva(giocatore, mappa, context.getSlotCorrente());
         System.exit(0);
     }
     public void inizializzaDaEsistente(Stregone giocatore, Mappa mappa) {
@@ -346,4 +345,6 @@ public class MappaController {
     public void setContext(GameContext context) {
         this.context = context;
     }
+
+
 }

@@ -117,13 +117,13 @@ public class CombattimentoController {
         try {
             Stage stage = (Stage) logCombattimento.getScene().getWindow();
             if (vittoria) {
-                MappaController controller = Main.cambiaScena(stage, "mappa.fxml", 1100, 700);
+                MappaController controller = Main.cambiaScena(stage, "mappa.fxml");
                 controller.setContext(context);
                 controller.inizializzaDaEsistente(giocatore, mappa);
                 controller.ritornaDopoScontro(true, cellaCorrente);
             } else {
                 // game over (non salva)
-                GameOverController controller = Main.cambiaScena(stage, "game-over.fxml", 500, 400);
+                GameOverController controller = Main.cambiaScena(stage, "game-over.fxml");
                 controller.setContext(context);
             }
         } catch (Exception e) {
@@ -137,4 +137,5 @@ public class CombattimentoController {
     public void setContext(GameContext context) {
         this.context = context;
     }
+
 }

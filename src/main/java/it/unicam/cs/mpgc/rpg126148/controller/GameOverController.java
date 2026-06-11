@@ -21,7 +21,7 @@ public class GameOverController {
     }
 
     private void verificaSalvataggio() {
-        SalvataggioStato stato = context.getGestoreSalvataggio().carica();
+        SalvataggioStato stato = context.getGestoreSalvataggio().carica(context.getSlotCorrente());
         if (stato == null) {
             btnRiprendi.setDisable(true);
             labelInfo.setText("Nessun salvataggio disponibile.");
@@ -33,9 +33,9 @@ public class GameOverController {
     @FXML
     public void riprendi() {
         try {
-            SalvataggioStato stato = context.getGestoreSalvataggio().carica();
+            SalvataggioStato stato = context.getGestoreSalvataggio().carica(context.getSlotCorrente());
             Stage stage = (Stage) btnRiprendi.getScene().getWindow();
-            MappaController controller = Main.cambiaScena(stage, "mappa.fxml", 1100, 700);
+            MappaController controller = Main.cambiaScena(stage, "mappa.fxml");
             controller.setContext(context);
             controller.inizializza(stato);
         } catch (Exception e) {
@@ -47,7 +47,7 @@ public class GameOverController {
     public void tornaMenu() {
         try {
             Stage stage = (Stage) btnRiprendi.getScene().getWindow();
-            MainMenuController controller = Main.cambiaScena(stage, "main-menu.fxml", 500, 400);
+            MainMenuController controller = Main.cambiaScena(stage, "main-menu.fxml");
             controller.setContext(context);
         } catch (Exception e) {
             e.printStackTrace();

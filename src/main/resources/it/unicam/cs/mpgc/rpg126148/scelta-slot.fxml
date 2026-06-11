@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="it.unicam.cs.mpgc.rpg126148.controller.SceltaSlotController"
+      alignment="CENTER"
+      spacing="15"
+      style="-fx-background-color: #1a1a2e; -fx-padding: 40;">
+
+    <Text fx:id="titolo"
+          text="SCEGLI SLOT"
+          style="-fx-fill: #e94560; -fx-font-size: 28; -fx-font-weight: bold;"/>
+
+    <VBox fx:id="boxSlot" spacing="10" alignment="CENTER"/>
+
+    <Button text="Indietro"
+            onAction="#indietro"
+            prefWidth="200"
+            style="-fx-background-color: transparent; -fx-text-fill: #a8a8b3;
+                   -fx-font-size: 12; -fx-cursor: hand;"/>
+</VBox>

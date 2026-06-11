@@ -1,0 +1,14 @@
+{
+  "nome": "332",
+  "puntiVita": 100,
+  "energiaNera": 100,
+  "frammenti": {
+    "OSCURITA": 0,
+    "FUOCO": 0,
+    "CURA": 0
+  },
+  "tecnicheSbloccate": [],
+  "xGiocatore": 3,
+  "yGiocatore": 2,
+  "dataOra": "11/06/2026 11:43"
+}

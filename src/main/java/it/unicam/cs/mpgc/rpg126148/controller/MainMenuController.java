@@ -23,7 +23,7 @@ public class MainMenuController {
     public void nuovaPartita() {
         try {
             Stage stage = (Stage) btnNuovaPartita.getScene().getWindow();
-            CreaPersonaggioController controller = Main.cambiaScena(stage, "crea-personaggio.fxml", 1100, 700);
+            CreaPersonaggioController controller = Main.cambiaScena(stage, "crea-personaggio.fxml");
             controller.setContext(context);
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,14 +32,20 @@ public class MainMenuController {
 
     @FXML
     public void caricaPartita() {
-        SalvataggioStato stato = context.getGestoreSalvataggio().carica();
-        apriMappa(stato);
+        try {
+            Stage stage = (Stage) btnNuovaPartita.getScene().getWindow();
+            SceltaSlotController controller = Main.cambiaScena(stage, "scelta-slot.fxml");
+            controller.setContext(context);
+            controller.inizializza(true, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void apriMappa(SalvataggioStato stato) {
         try {
             Stage stage = (Stage) btnNuovaPartita.getScene().getWindow();
-            MappaController controller = Main.cambiaScena(stage, "mappa.fxml", 1100, 700);
+            MappaController controller = Main.cambiaScena(stage, "mappa.fxml");
             controller.setContext(context);
             controller.inizializza(stato);
         } catch (Exception e) {

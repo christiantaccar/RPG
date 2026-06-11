@@ -12,7 +12,7 @@ public class GameContext {
     private final GestoreSalvataggio gestoreSalvataggio;
     private final GestoreFrammenti gestoreFrammenti;
     private final GestoreRicompense gestoreRicompense;
-
+    private int slotCorrente=1;
     public GameContext() {
         this.gestoreSalvataggio = new GestoreSalvataggio();
         this.gestoreFrammenti = new GestoreFrammenti();
@@ -28,4 +28,6 @@ public class GameContext {
     public GestoreSalvataggio getGestoreSalvataggio() { return gestoreSalvataggio; }
     public GestoreFrammenti getGestoreFrammenti() { return gestoreFrammenti; }
     public GestoreRicompense getGestoreRicompense() { return gestoreRicompense; }
+    public int getSlotCorrente() { return slotCorrente; }
+    public void setSlotCorrente(int slot) { this.slotCorrente = slot; }
 }

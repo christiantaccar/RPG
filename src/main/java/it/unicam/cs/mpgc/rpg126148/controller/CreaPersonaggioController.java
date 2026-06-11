@@ -29,12 +29,11 @@ public class CreaPersonaggioController {
             labelErrore.setText("Il nome deve avere almeno 2 caratteri.");
             return;
         }
-
         try {
             Stage stage = (Stage) campoNome.getScene().getWindow();
-            MappaController controller = Main.cambiaScena(stage, "mappa.fxml", 900, 600);
+            SceltaSlotController controller = Main.cambiaScena(stage, "scelta-slot.fxml");
             controller.setContext(context);
-            controller.inizializza(null, nome); // passa il nome scelto
+            controller.inizializza(false, nome);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +43,7 @@ public class CreaPersonaggioController {
     public void tornaMenu() {
         try {
             Stage stage = (Stage) campoNome.getScene().getWindow();
-            MainMenuController controller = Main.cambiaScena(stage, "main-menu.fxml", 500, 400);
+            MainMenuController controller = Main.cambiaScena(stage, "main-menu.fxml");
             controller.setContext(context);
         } catch (Exception e) {
             e.printStackTrace();

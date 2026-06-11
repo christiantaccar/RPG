@@ -15,26 +15,38 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/it/unicam/cs/mpgc/rpg126148/main-menu.fxml")
         );
-        Scene scene = new Scene(loader.load(), 500, 400);
-        MainMenuController controller = loader.getController();
-        controller.setContext(context);
+        Scene scene = new Scene(loader.load());
         stage.setTitle("RPG Maledetto");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
+        MainMenuController controller = loader.getController();
+        controller.setContext(context);
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-    public static <T> T cambiaScena(Stage stage, String fxml, int w, int h) throws Exception {
+    public static <T> T cambiaScena(Stage stage, String fxml) throws Exception {
         String path = "/it/unicam/cs/mpgc/rpg126148/" + fxml;
         java.net.URL url = Main.class.getResource(path);
         if (url == null) throw new RuntimeException("FXML non trovato: " + path);
+
+        boolean eraMaximized = stage.isMaximized();
+        double w = stage.getWidth();
+        double h = stage.getHeight();
+
         FXMLLoader loader = new FXMLLoader(url);
-        Scene scene = new Scene(loader.load(), w, h);
-        stage.setScene(scene);
-        stage.sizeToScene();
-        stage.centerOnScreen();
+        stage.setScene(new Scene(loader.load(), w, h));
+
+        if (eraMaximized) {
+            stage.setMaximized(true);
+        }
+
+        javafx.application.Platform.runLater(() -> {
+            stage.getScene().getRoot().requestLayout();
+        });
+
         return loader.getController();
     }
 }
