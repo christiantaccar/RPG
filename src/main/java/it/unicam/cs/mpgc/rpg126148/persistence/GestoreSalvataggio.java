@@ -6,11 +6,15 @@ import it.unicam.cs.mpgc.rpg126148.items.Frammento;
 import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
 import it.unicam.cs.mpgc.rpg126148.model.Stregone;
 import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
+import it.unicam.cs.mpgc.rpg126148.world.Cella;
+import it.unicam.cs.mpgc.rpg126148.world.TipoCella;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GestoreSalvataggio {
@@ -46,7 +50,17 @@ public class GestoreSalvataggio {
 
         stato.tecnicheSbloccate = stregone.getTecnicheSbloccate()
                 .stream().map(Tecnica::nome).toList();
-
+        // salva celle diventate VUOTE (ex nemici/casse sconfitti)
+        List<int[]> celleVuotate = new ArrayList<>();
+        for (int y = 0; y < mappa.getAltezza(); y++) {
+            for (int x = 0; x < mappa.getLarghezza(); x++) {
+                Cella cella = mappa.getCella(x, y);
+                if (cella.isEsplorata() && cella.getTipo() == TipoCella.VUOTA) {
+                    celleVuotate.add(new int[]{x, y});
+                }
+            }
+        }
+        stato.celleVuotate = celleVuotate;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeFile(slot)))) {
             gson.toJson(stato, writer);
             System.out.println("💾 Salvataggio slot " + slot + " completato.");
@@ -77,12 +91,4 @@ public class GestoreSalvataggio {
         return slot;
     }
 
-    // metodi vecchi per compatibilità — usano slot 1 di default
-    public void salva(Stregone stregone, it.unicam.cs.mpgc.rpg126148.world.Mappa mappa) {
-        salva(stregone, mappa, 1);
-    }
-
-    public SalvataggioStato carica() {
-        return carica(1);
-    }
 }

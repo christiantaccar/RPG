@@ -74,6 +74,8 @@
                        style="-fx-text-fill: #8888aa; -fx-font-size: 11;"/>
                 <Label text="I = Inventario"
                        style="-fx-text-fill: #f5a623; -fx-font-size: 11;"/>
+                <Label text="P = Salvataggio rapido"
+                       style="-fx-text-fill: #a8a8b3; -fx-font-size: 11;"/>
             </VBox>
 
             <Label text="COMANDI"
@@ -87,6 +89,7 @@
                     style="-fx-background-color: #e94560; -fx-text-fill: white;
                        -fx-font-weight: bold; -fx-background-radius: 6;
                        -fx-cursor: hand; -fx-padding: 8 15;"/>
+
 
         </VBox>
     </right>

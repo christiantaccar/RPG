@@ -12,4 +12,5 @@ public class SalvataggioStato {
     public int xGiocatore;
     public int yGiocatore;
     public String dataOra;
+    public List<int[]> celleVuotate;//celle vuotate dopo gli eventi
 }

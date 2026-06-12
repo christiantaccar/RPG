@@ -68,7 +68,13 @@ public class MappaController {
         }
 
         costruisciMappa();
-
+        // ripristina celle vuotate dal salvataggio
+        if (stato != null && stato.celleVuotate != null) {
+            stato.celleVuotate.forEach(coord -> {
+                mappa.getCella(coord[0], coord[1]).setTipo(TipoCella.VUOTA);
+                mappa.getCella(coord[0], coord[1]).setEsplorata(true);
+            });
+        }
         if (stato != null) {
             mappa.posizionaGiocatore(stato.xGiocatore, stato.yGiocatore);
         } else {
@@ -227,6 +233,7 @@ public class MappaController {
             case A, LEFT -> dx = -1;
             case D, RIGHT -> dx = 1;
             case I->apriInventario();
+            case P->salvataggioRapido();
             default -> { return; }
         }
         muovi(dx, dy);
@@ -405,6 +412,10 @@ public class MappaController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void salvataggioRapido() {
+        context.getGestoreSalvataggio().salva(giocatore, mappa, context.getSlotCorrente());
+        log("💾 Partita salvata!");
     }
 
 }
