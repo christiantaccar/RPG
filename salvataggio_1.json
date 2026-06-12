@@ -1,0 +1,17 @@
+{
+  "nome": "giogargoile",
+  "puntiVita": 100,
+  "energiaNera": 40,
+  "frammenti": {
+    "OSCURITA": 3,
+    "FUOCO": 1,
+    "CURA": 0
+  },
+  "tecnicheSbloccate": [
+    "Palla di Fuoco",
+    "Cura"
+  ],
+  "xGiocatore": 17,
+  "yGiocatore": 8,
+  "dataOra": "12/06/2026 00:36"
+}

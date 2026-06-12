@@ -276,8 +276,13 @@ public class MappaController {
         }
         Frammento frammento = new Frammento(tipo);
         context.getGestoreFrammenti().aggiungiFrammento(giocatore, frammento);
+
+        // +20 energia bonus
+        giocatore.recuperaEnergia(20);
+
         cella.setTipo(TipoCella.VUOTA);
-        log("Hai trovato: " + frammento.getNome());
+        log("📦 Hai trovato: " + frammento.getNome() + " +20 EN");
+        aggiornaStats();
     }
 
     public void ritornaDopoScontro(boolean vittoria, Cella cella) {

@@ -41,31 +41,28 @@
         </HBox>
     </top>
 
-    <!-- CENTER: log combattimento -->
+    <!-- CENTER: log + tecniche -->
     <center>
-        <VBox style="-fx-padding: 20;" spacing="10">
+        <VBox style="-fx-padding: 20;" spacing="15">
+
             <Label text="COMBATTIMENTO"
                    style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 13;"/>
+
             <TextArea fx:id="logCombattimento"
                       editable="false"
                       wrapText="true"
-                      prefHeight="250"
+                      prefHeight="300"
+                      maxHeight="300"
                       style="-fx-background-color: #0f3460; -fx-text-fill: #a8a8b3;
                              -fx-font-size: 12; -fx-border-color: #e94560;"/>
-        </VBox>
-    </center>
-
-    <!-- BOTTOM: scelta tecniche -->
-    <bottom>
-        <VBox style="-fx-background-color: #16213e; -fx-padding: 15 20;"
-              spacing="10">
 
             <Label text="SCEGLI TECNICA:"
                    style="-fx-text-fill: #a8a8b3; -fx-font-size: 12;"/>
 
-            <HBox fx:id="boxTecniche" spacing="10" alignment="CENTER_LEFT"/>
+            <HBox fx:id="boxTecniche" spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-padding: 5;"/>
 
         </VBox>
-    </bottom>
+    </center>
 
 </BorderPane>
