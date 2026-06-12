@@ -1,17 +1,16 @@
 {
-  "nome": "giogargoile",
+  "nome": "KL",
   "puntiVita": 100,
-  "energiaNera": 40,
+  "energiaNera": 100,
   "frammenti": {
-    "OSCURITA": 3,
-    "FUOCO": 1,
+    "OSCURITA": 1,
+    "FUOCO": 0,
     "CURA": 0
   },
   "tecnicheSbloccate": [
-    "Palla di Fuoco",
-    "Cura"
+    "Palla di Fuoco"
   ],
-  "xGiocatore": 17,
-  "yGiocatore": 8,
-  "dataOra": "12/06/2026 00:36"
+  "xGiocatore": 13,
+  "yGiocatore": 2,
+  "dataOra": "12/06/2026 12:27"
 }

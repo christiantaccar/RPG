@@ -9,7 +9,7 @@ public class RegistroTecniche {
     static {
         TECNICHE.put("Palla di Fuoco", new PallaDiFuoco());
         TECNICHE.put("Cura", new Cura());
-        TECNICHE.put("Magia", new Magia());
+        TECNICHE.put("Maledizione Nera", new Magia());
     }
 
     public static Tecnica get(String nome) {

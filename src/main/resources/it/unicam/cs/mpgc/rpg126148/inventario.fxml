@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unicam.cs.mpgc.rpg126148.controller.InventarioController"
+            style="-fx-background-color: #1a1a2e;">
+
+    <top>
+        <HBox style="-fx-background-color: #16213e; -fx-padding: 15 30;"
+              alignment="CENTER_LEFT" spacing="20">
+            <Label text="INVENTARIO"
+                   style="-fx-text-fill: #e94560; -fx-font-size: 20; -fx-font-weight: bold;"/>
+            <Label fx:id="labelNome"
+                   style="-fx-text-fill: #a8a8b3; -fx-font-size: 14;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="20" style="-fx-padding: 20;">
+
+            <!-- colonna sinistra: frammenti -->
+            <VBox spacing="10" prefWidth="300">
+                <Label text="FRAMMENTI"
+                       style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 14;"/>
+
+                <VBox fx:id="boxFrammenti" spacing="8"/>
+            </VBox>
+
+            <!-- colonna destra: tecniche sbloccabili -->
+            <VBox spacing="10" prefWidth="400">
+                <Label text="TECNICHE SBLOCCABILI"
+                       style="-fx-text-fill: #e94560; -fx-font-weight: bold; -fx-font-size: 14;"/>
+
+                <VBox fx:id="boxTecniche" spacing="8"/>
+            </VBox>
+                <Button text="Torna al gioco"
+                        onAction="#chiudi"
+                        style="-fx-background-color: #e94560; -fx-text-fill: white;
+                           -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand;"/>
+        </HBox>
+
+    </center>
+
+
+
+</BorderPane>

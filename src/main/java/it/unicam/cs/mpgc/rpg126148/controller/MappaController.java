@@ -185,6 +185,7 @@ public class MappaController {
             case S, DOWN -> dy = 1;
             case A, LEFT -> dx = -1;
             case D, RIGHT -> dx = 1;
+            case I->apriInventario();
             default -> { return; }
         }
         muovi(dx, dy);
@@ -350,6 +351,15 @@ public class MappaController {
     public void setContext(GameContext context) {
         this.context = context;
     }
-
+    private void apriInventario() {
+        try {
+            Stage stage = (Stage) gridMappa.getScene().getWindow();
+            InventarioController controller = Main.cambiaScena(stage, "inventario.fxml");
+            controller.setContext(context);
+            controller.inizializza(giocatore, mappa);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -30,9 +30,6 @@ public class GestoreFrammenti {
 
         System.out.println("   Frammenti " + frammento.getTipo().name() + ": " + conteggio + "/" + soglia);
 
-        if (conteggio >= soglia) {
-            sblocca(stregone, frammento.getTipo());
-        }
     }
 
     private int contaFrammenti(Stregone stregone, TipoFrammento tipo) {
