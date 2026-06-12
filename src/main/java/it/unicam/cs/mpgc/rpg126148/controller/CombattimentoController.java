@@ -121,6 +121,10 @@ public class CombattimentoController {
                 controller.setContext(context);
                 controller.inizializzaDaEsistente(giocatore, mappa);
                 controller.ritornaDopoScontro(true, cellaCorrente);
+                if(!mappa.hasNemici()){
+                    VittoriaController win = Main.cambiaScena(stage, "vittoria.fxml");
+                    win.setContext(context);
+                }
             } else {
                 // game over (non salva)
                 GameOverController controller = Main.cambiaScena(stage, "game-over.fxml");

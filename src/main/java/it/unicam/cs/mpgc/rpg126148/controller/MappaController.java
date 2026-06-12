@@ -43,7 +43,7 @@ public class MappaController {
     private final Random random = new Random();
     private int xPrecedente;
     private int yPrecedente;
-    private static final int CELL_SIZE = 22;
+    private static final int CELL_SIZE = 18;
     public void inizializza(SalvataggioStato stato) {
         inizializza(stato,"Player1");
     }
@@ -87,45 +87,86 @@ public class MappaController {
     }
 
     private void costruisciMappa() {
-        mappa = new Mappa(25, 25);
+        mappa = new Mappa(35, 35);
 
-        // stanza 1 — partenza (6x3)
-        mappa.aggiungiStanza(new Stanza("Villaggio Abbandonato", 1, 1, 6, 3, 1));
-        mappa.setIngresso(6, 2);
+        // STANZA 1 — tutorial (6x4) angolo in alto a sinistra
+        mappa.aggiungiStanza(new Stanza("Villaggio Abbandonato", 1, 1, 6, 4, 1));
+        mappa.setIngresso(6, 3);
         mappa.posizionaCassaTipizzata(2, 2, TipoFrammento.FUOCO);
         mappa.posizionaCassaTipizzata(4, 2, TipoFrammento.FUOCO);
 
-        // corridoio orizzontale stanza 1 → stanza 2
-        mappa.aggiungiCorridoio(7, 2, 9, 2);
+        // corridoio S1 → S2 con cassa nascosta
+        mappa.aggiungiCorridoio(7, 3, 10, 3);
+        mappa.posizionaCassaTipizzata(9, 3, TipoFrammento.FUOCO); // cassa fuori
 
-        // stanza 2 — nemico facile (6x3)
-        mappa.aggiungiStanza(new Stanza("Accampamento Oscuro", 10, 1, 6, 3, 1));
-        mappa.setIngresso(10, 2);
-        mappa.setIngresso(15, 2);
-        mappa.posizionaNemico(12, 2);
-        mappa.posizionaCassaTipizzata(13, 2, TipoFrammento.FUOCO);
+        // STANZA 2 — livello 1 (6x4)
+        mappa.aggiungiStanza(new Stanza("Accampamento Oscuro", 11, 1, 6, 4, 1));
+        mappa.setIngresso(11, 3);
+        mappa.setIngresso(16, 3);
+        mappa.posizionaNemico(13, 2);
+        mappa.posizionaCassaTipizzata(15, 2, TipoFrammento.FUOCO);
 
-        // corridoio orizzontale + verticale stanza 2 → stanza 3
-        mappa.aggiungiCorridoio(16, 2, 17, 2);
-        mappa.aggiungiCorridoio(17, 2, 17, 5);
+        // corridoio S2 → S3 curva verso il basso
+        mappa.aggiungiCorridoio(17, 3, 19, 3);
+        mappa.aggiungiCorridoio(19, 3, 19, 8);
+        mappa.posizionaCassaTipizzata(19, 6, TipoFrammento.CURA); // cassa fuori
 
-        // stanza 3 — livello 2 (8x5)
-        mappa.aggiungiStanza(new Stanza("Rovine del Tempio", 14, 6, 8, 5, 2));
-        mappa.setIngresso(17, 6);
-        mappa.posizionaNemico(16, 8);
-        mappa.posizionaNemico(19, 8);
-        mappa.posizionaCassaTipizzata(20, 9, TipoFrammento.CURA);
-        mappa.setIngresso(17,10);
+        // STANZA 3 — livello 2 (7x4)
+        mappa.aggiungiStanza(new Stanza("Foresta Maledetta", 16, 9, 7, 4, 2));
+        mappa.setIngresso(19, 9);
+        mappa.setIngresso(16, 11);
+        mappa.posizionaNemico(18, 11);
+        mappa.posizionaCassaTipizzata(21, 11, TipoFrammento.CURA);
 
-        // corridoio verticale stanza 3 → stanza 4
-        mappa.aggiungiCorridoio(17, 11, 17, 13);
+        // corridoio S3 → S4 curva a sinistra
+        mappa.aggiungiCorridoio(15, 11, 12, 11);
+        mappa.aggiungiCorridoio(12, 11, 12, 15);
+        mappa.posizionaCassaTipizzata(12, 13, TipoFrammento.FUOCO); // cassa fuori
 
-        // stanza 4 — boss (8x4)
-        mappa.aggiungiStanza(new Stanza("Abisso Oscuro", 13, 14, 8, 4, 3));
-        mappa.setIngresso(17, 14);
-        mappa.posizionaNemico(15, 16);
-        mappa.posizionaNemico(18, 16);
-        mappa.posizionaCassaTipizzata(14, 16, TipoFrammento.OSCURITA);
+        // STANZA 4 — livello 2 (6x4)
+        mappa.aggiungiStanza(new Stanza("Rovine Antiche", 9, 16, 6, 4, 2));
+        mappa.setIngresso(12, 16);
+        mappa.setIngresso(9, 18);
+        mappa.posizionaNemico(11, 18);
+        mappa.posizionaCassaTipizzata(13, 18, TipoFrammento.CURA);
+
+        // corridoio S4 → S5 curva verso sinistra poi giù
+        mappa.aggiungiCorridoio(8, 18, 5, 18);
+        mappa.aggiungiCorridoio(5, 18, 5, 23);
+        mappa.posizionaCassaTipizzata(5, 21, TipoFrammento.OSCURITA); // cassa fuori
+
+        // STANZA 5 — livello 3 (7x4)
+        mappa.aggiungiStanza(new Stanza("Tempio Oscuro", 3, 24, 7, 4, 3));
+        mappa.setIngresso(5, 24);
+        mappa.setIngresso(9, 26);
+        mappa.posizionaNemico(5, 26);
+        mappa.posizionaCassaTipizzata(8, 26, TipoFrammento.OSCURITA);
+
+        // corridoio S5 → S6 curva a destra
+        mappa.aggiungiCorridoio(10, 26, 15, 26);
+        mappa.aggiungiCorridoio(15, 26, 15, 22);
+        mappa.posizionaCassaTipizzata(15, 24, TipoFrammento.CURA); // cassa fuori
+
+        // STANZA 6 — livello 4 (7x4)
+        mappa.aggiungiStanza(new Stanza("Abisso Corrotto", 13, 18, 7, 4, 4));
+        mappa.setIngresso(15, 21);
+        mappa.setIngresso(19, 20);
+        mappa.posizionaNemico(15, 20);
+        mappa.posizionaCassaTipizzata(18, 20, TipoFrammento.OSCURITA);
+
+        // corridoio S6 → S7 curva verso destra e giù
+        mappa.aggiungiCorridoio(20, 20, 24, 20);
+        mappa.aggiungiCorridoio(24, 20, 24, 26);
+        mappa.posizionaCassaTipizzata(24, 23, TipoFrammento.OSCURITA); // cassa fuori
+
+        // STANZA 7 — BOSS (8x5)
+        mappa.aggiungiStanza(new Stanza("Sanctum Oscuro", 21, 27, 8, 5, 5));
+        mappa.setIngresso(24, 27);
+        mappa.posizionaNemico(25, 30); // boss finale
+        mappa.posizionaCassaTipizzata(27, 30, TipoFrammento.OSCURITA);
+
+        // posizione iniziale giocatore
+        mappa.posizionaGiocatore(3, 2);
     }
 
     private void aggiornaGriglia() {
@@ -222,7 +263,11 @@ public class MappaController {
     private void gestisciNemico(Cella cella) {
         Stanza stanzaCorrente = mappa.getStanzaCorrente();
         int livello = (stanzaCorrente != null) ? stanzaCorrente.getLivelloNemici() : 1;
-        Maledizione nemico = new Maledizione("Spirito Maledetto", livello);
+        boolean isBoss = stanzaCorrente != null &&
+                stanzaCorrente.getNome().equals("Sanctum Oscuro");
+
+        String nomeNemico = isBoss ? "⚡ RE DELLE MALEDIZIONI ⚡" : "Spirito Maledetto";
+        Maledizione nemico = new Maledizione(nomeNemico, livello);
 
         // anteprima nemico
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(

@@ -140,4 +140,18 @@ public class Mappa {
             System.out.println();
         }
     }
+    public boolean hasNemici() {
+
+        for (int y = 0; y < altezza; y++) {
+            for (int x = 0; x < larghezza; x++) {
+
+                if (griglia[y][x].getTipo() == TipoCella.NEMICO) {
+                    return true;
+                }
+
+            }
+        }
+        System.out.print("nemici ancora");
+        return false;
+    }
 }

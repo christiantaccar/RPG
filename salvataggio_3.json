@@ -1,0 +1,17 @@
+{
+  "nome": "mi mooor",
+  "puntiVita": 100,
+  "energiaNera": 100,
+  "frammenti": {
+    "OSCURITA": 3,
+    "FUOCO": 3,
+    "CURA": 2
+  },
+  "tecnicheSbloccate": [
+    "Palla di Fuoco",
+    "Cura"
+  ],
+  "xGiocatore": 15,
+  "yGiocatore": 22,
+  "dataOra": "12/06/2026 14:46"
+}
