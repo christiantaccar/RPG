@@ -10,7 +10,7 @@ raccoglie frammenti per sbloccare tecniche e affronta un boss finale.
 
 ### Prerequisiti
 - Java 25 (LTS)
-- Gradle
+- Gradle 9.1
 
 ### Istruzioni
 
