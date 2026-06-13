@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GestoreSalvataggio {
+public class GestoreSalvataggio implements ISalvataggio{
 
     private static final int NUM_SLOT = 5;
     private static final String PREFISSO = "salvataggio_";

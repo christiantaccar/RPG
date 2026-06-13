@@ -11,7 +11,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class GestoreFrammenti {
+public class GestoreFrammenti implements IGestoreFrammenti{
 
     private static final Map<TipoFrammento, Integer> SOGLIE = new EnumMap<>(TipoFrammento.class);
 

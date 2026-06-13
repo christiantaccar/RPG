@@ -6,7 +6,7 @@ import it.unicam.cs.mpgc.rpg126148.model.Maledizione;
 
 import java.util.Optional;
 
-public class GestoreRicompense {
+public class GestoreRicompense implements IGestoreRicompense {
 
     public Optional<Frammento> genera(Maledizione nemico) {
         return switch (nemico.getLivelloMinaccia()) {
