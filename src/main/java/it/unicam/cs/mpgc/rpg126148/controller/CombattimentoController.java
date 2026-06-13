@@ -7,6 +7,7 @@ import it.unicam.cs.mpgc.rpg126148.model.Stregone;
 import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
 import it.unicam.cs.mpgc.rpg126148.world.Cella;
 import it.unicam.cs.mpgc.rpg126148.world.Mappa;
+import it.unicam.cs.mpgc.rpg126148.world.TipoCella;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -117,16 +118,19 @@ public class CombattimentoController {
         try {
             Stage stage = (Stage) logCombattimento.getScene().getWindow();
             if (vittoria) {
+                cellaCorrente.setTipo(TipoCella.VUOTA);
+
+                if (!mappa.hasNemici()) {
+                    VittoriaController win = Main.cambiaScena(stage, "vittoria.fxml");
+                    win.setContext(context);
+                    return;
+                }
+
                 MappaController controller = Main.cambiaScena(stage, "mappa.fxml");
                 controller.setContext(context);
                 controller.inizializzaDaEsistente(giocatore, mappa);
-                controller.ritornaDopoScontro(true, cellaCorrente);
-                if(!mappa.hasNemici()){
-                    VittoriaController win = Main.cambiaScena(stage, "vittoria.fxml");
-                    win.setContext(context);
-                }
+                controller.ritornaDopoScontro(vittoria, cellaCorrente);
             } else {
-                // game over (non salva)
                 GameOverController controller = Main.cambiaScena(stage, "game-over.fxml");
                 controller.setContext(context);
             }

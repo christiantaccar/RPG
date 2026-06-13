@@ -6,14 +6,12 @@ import it.unicam.cs.mpgc.rpg126148.items.Frammento;
 import it.unicam.cs.mpgc.rpg126148.items.TipoFrammento;
 import it.unicam.cs.mpgc.rpg126148.model.Maledizione;
 import it.unicam.cs.mpgc.rpg126148.model.Stregone;
-import it.unicam.cs.mpgc.rpg126148.persistence.GestoreSalvataggio;
 import it.unicam.cs.mpgc.rpg126148.persistence.SalvataggioStato;
 import it.unicam.cs.mpgc.rpg126148.tecniche.RegistroTecniche;
 import it.unicam.cs.mpgc.rpg126148.tecniche.Tecnica;
 import it.unicam.cs.mpgc.rpg126148.world.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
@@ -232,8 +230,14 @@ public class MappaController {
             case S, DOWN -> dy = 1;
             case A, LEFT -> dx = -1;
             case D, RIGHT -> dx = 1;
-            case I->apriInventario();
-            case P->salvataggioRapido();
+            case I->{
+                apriInventario();
+                return;
+            }
+            case P->{
+                salvataggioRapido();
+                return;
+            }
             default -> { return; }
         }
         muovi(dx, dy);
@@ -273,7 +277,7 @@ public class MappaController {
         boolean isBoss = stanzaCorrente != null &&
                 stanzaCorrente.getNome().equals("Sanctum Oscuro");
 
-        String nomeNemico = isBoss ? "⚡ RE DELLE MALEDIZIONI ⚡" : "Spirito Maledetto";
+        String nomeNemico = isBoss ? " RE DELLE MALEDIZIONI " : "SpiritoMaledetto";
         Maledizione nemico = new Maledizione(nomeNemico, livello);
 
         // anteprima nemico
@@ -281,7 +285,7 @@ public class MappaController {
                 javafx.scene.control.Alert.AlertType.CONFIRMATION
         );
         alert.setTitle("⚠ Nemico Rilevato");
-        alert.setHeaderText("Spirito Maledetto — Livello " + livello);
+        alert.setHeaderText(nomeNemico+" — Livello " + livello);
         alert.setContentText(
                 "HP: " + nemico.getPuntiVitaMassimi() + "\n" +
                         "Attacco: " + nemico.getAttacco() + "\n" +
@@ -340,16 +344,15 @@ public class MappaController {
 
     public void ritornaDopoScontro(boolean vittoria, Cella cella) {
         if (vittoria) {
-            cella.setTipo(TipoCella.VUOTA);
-            Optional<Frammento> ricompensa = context.getGestoreRicompense().genera(
-                    new Maledizione("", 1 + random.nextInt(3))
-            );
-            ricompensa.ifPresent(f -> {
+            giocatore.resetHP();
+            giocatore.recuperaEnergia(30);
+            context.getGestoreRicompense().genera(
+                    new Maledizione("", mappa.getStanzaCorrente() != null ?
+                            mappa.getStanzaCorrente().getLivelloNemici() : 1)
+            ).ifPresent(f -> {
                 context.getGestoreFrammenti().aggiungiFrammento(giocatore, f);
                 log("🔮 Hai ottenuto: " + f.getNome());
             });
-        } else {
-            log("☠ Sei stato sconfitto!");
         }
         aggiornaGriglia();
         aggiornaStats();

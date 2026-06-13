@@ -151,7 +151,6 @@ public class Mappa {
 
             }
         }
-        System.out.print("nemici ancora");
         return false;
     }
 }
